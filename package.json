@@ -1,16 +1,28 @@
 {
-  "name": "gatsby-starter-plugin",
-  "version": "1.0.0",
-  "description": "A minimal boilerplate for the essential files Gatsby looks for in a plugin",
-  "main": "index.js",
+  "name": "gatsby-source-shopware",
+  "version": "0.0.1",
+  "description": "A plugin for Gatsby to use Shopware as a data source",
+  "main": "gatsby-node.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "echo \"No build script setup\""
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moritzsattl/gatsby-source-shopware.git"
   },
   "keywords": [
     "gatsby",
-    "gatsby-plugin"
+    "gatsby-plugin",
+    "plugin",
+    "shopware"
   ],
-  "author": "Kyle Gill <kyle.robert.gill@gmail.com>",
-  "license": "0BSD"
+  "author": "Moritz Sattlegger",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/moritzsattl/gatsby-source-shopware/issues"
+  },
+  "homepage": "https://github.com/moritzsattl/gatsby-source-shopware#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  }
 }
