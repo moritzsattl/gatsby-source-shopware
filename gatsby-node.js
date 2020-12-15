@@ -9,87 +9,78 @@ exports.sourceNodes = async ({
     console.log("Testing my plugin", configOptions);
 
 
-    //const tokenApiEndpoint = `${configOptions.host}/store-api/v3/context`
+    
     const headers = {
         headers: {
             "sw-access-key": configOptions.accessKey
         }
     }
-    /*
-    const processToken = (token) => {
-        const nodeId = createNodeId(`TOKEN-${token.token}`)
-        const nodeContent = JSON.stringify(token)
-        const nodeData = Object.assign({}, token, {
-            id: nodeId,
-            parent: null,
-            children: [],
-            internal: {
-                type: `Token`,
-                content: nodeContent,
-                contentDigest: createContentDigest(token),
-            },
-        })
-        return nodeData
-    }
-    */
+    
+    
     const processProduct = (product) => {
-        const nodeId = createNodeId(`PRODUCT-${product.id}`)
+        const nodeId = createNodeId(`SHOPWAREPRODUCT-${product.id}`)
         const nodeContent = JSON.stringify(product)
         const nodeData = Object.assign({}, product, {
             id: nodeId,
             parent: null,
             children: [],
             internal: {
-                type: `Product`,
+                type: `ShopwareProduct`,
                 content: nodeContent,
                 contentDigest: createContentDigest(product),
             },
         })
         return nodeData
     }
-
-    const processCategory = (category) => {
-        const nodeId = createNodeId(`CATEGORY-${category.id}`)
-        const nodeContent = JSON.stringify(category)
-        const nodeData = Object.assign({}, category, {
+    
+   const processToken = (token) => {
+        const nodeId = createNodeId(`SHOPWARETOKEN-${token.token}`)
+        const nodeContent = JSON.stringify(token)
+        const nodeData = Object.assign({}, token, {
             id: nodeId,
             parent: null,
             children: [],
             internal: {
-                type: `Category`,
+                type: `ShopwareToken`,
                 content: nodeContent,
-                contentDigest: createContentDigest(category),
+                contentDigest: createContentDigest(token),
             },
         })
         return nodeData
     }
 
-    /*
+    
+    const productApiEndpoint = `${configOptions.host}/sales-channel-api/v3/product?associations[media][]`
+    const tokenApiEndpoint = `${configOptions.host}/store-api/v3/context`
+    
+
+
+    
+    const fetchProducts = await fetch(productApiEndpoint, {
+            method: "GET", // *GET, POST, PUT, DELETE, etc.
+            mode: "cors", // no-cors, cors, *same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "omit", // include, *same-origin, omit
+            headers: {
+                "Content-Type": "application/json",
+                "sw-access-key": `${process.env.SHOPWARE_ACCESS_KEY}`,
+            },
+            redirect: "follow", // manual, *folslow, error
+            referrer: "client", // no-referrer, *client
+        })
+        .then(response => response.json())
+        .then(data=>{return data})
+        .catch(err=> {return err})
+
     const tokenRequest = await fetch(tokenApiEndpoint, headers);
     const tokenData = await tokenRequest.json();
-    Object.assign(headers,{'sw-context-token' : tokenData.token})
+    
     createNode(processToken(tokenData))
-    */
-    const productApiEndpoint = `${configOptions.host}/store-api/v3/product`
-    const categoryApiEndpoint = `${configOptions.host}/store-api/v3/category`
 
-
-
-    const fetchProduct = await fetch(productApiEndpoint, headers)
-    const fetchCategory = await fetch(categoryApiEndpoint, headers)
-
-
-    const products = await fetchProduct.json()
-    const categories = await fetchCategory.json()
-
-    categories.elements.forEach(element => {
-        createNode(processCategory(element))
-    })
-
-    products.elements.forEach(element => {
+    fetchProducts.data.forEach(element => {
         createNode(processProduct(element))
     })
-
-
-
+    
+    
+        
 }
