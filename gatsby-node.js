@@ -6,7 +6,6 @@ exports.sourceNodes = async ({
     createNodeId,
 }, configOptions) => {
     const { createNode } = actions
-    console.log("Testing my plugin", configOptions);
 
 
     
@@ -53,34 +52,24 @@ exports.sourceNodes = async ({
     const productApiEndpoint = `${configOptions.host}/sales-channel-api/v3/product?associations[media][]`
     const tokenApiEndpoint = `${configOptions.host}/store-api/v3/context`
     
-
-
-    
-    const fetchProducts = await fetch(productApiEndpoint, {
-            method: "GET", // *GET, POST, PUT, DELETE, etc.
-            mode: "cors", // no-cors, cors, *same-origin
-            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: "omit", // include, *same-origin, omit
-            headers: {
-                "Content-Type": "application/json",
-                "sw-access-key": `${process.env.SHOPWARE_ACCESS_KEY}`,
-            },
-            redirect: "follow", // manual, *folslow, error
-            referrer: "client", // no-referrer, *client
-        })
+    const fetchProducts = await fetch(productApiEndpoint,headers)
         .then(response => response.json())
         .then(data=>{return data})
         .catch(err=> {return err})
 
-    const tokenRequest = await fetch(tokenApiEndpoint, headers);
-    const tokenData = await tokenRequest.json();
+    const fetchToken = await fetch(tokenApiEndpoint, headers)
+        .then(response => response.json())
+        .then(data=>{return data})
+        .catch(err=> {return err})
     
-    createNode(processToken(tokenData))
-
     fetchProducts.data.forEach(element => {
         createNode(processProduct(element))
     })
-    
-    
+
+    createNode(processToken(fetchToken)) 
         
+}
+
+exports.printMsg = function() {
+    console.log("This is a message from the gatsby-source-shopware plugin");
 }
