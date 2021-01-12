@@ -1,6 +1,6 @@
 {
-  "name": "gatsby-source-shopware",
-  "version": "0.0.1",
+  "name": "@moritzsattl/gatsby-source-shopware",
+  "version": "1.0.0",
   "description": "A plugin for Gatsby to use Shopware as a data source",
   "main": "gatsby-node.js",
   "scripts": {

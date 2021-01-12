@@ -42,10 +42,10 @@ module.exports = {
 
 ```
 
-```graphql
+```javascript
 // In your .dev.development or .dev.production file
-SHOPWARE_HOST= <insert url to your shopware instance> e.g. http://localhost:8000
-SHOPWARE_ACCESS_KEY= <insert your shopware access key>
+SHOPWARE_HOST= //<insert url to your shopware instance>  e.g. http://localhost:8000
+SHOPWARE_ACCESS_KEY= //<insert your shopware access key>
 
 ```
 
