@@ -13,14 +13,14 @@ A Gatsby source plugin for sourcing data into your Gatsby application from shopw
 ## How to install
 
 ```
-npm install gatsby-source-shopware
+npm install --save gatsby-source-shopware
 ```
 
 ## When do I use this plugin?
 
 If you want to build a headless frontend using shopware 6 as a data source, this plugin will help you.
 
-## Examples of usage
+## How to use
 
 ```javascript
 // In your gatsby-config.js
@@ -48,6 +48,13 @@ SHOPWARE_HOST= //<insert url to your shopware instance>  e.g. http://localhost:8
 SHOPWARE_ACCESS_KEY= //<insert your shopware access key>
 
 ```
+## Plugin Options
+
+### host (required)
+Your API Endpoint where your SHopware 6 installation lives.
+
+### accessKey (required)
+Your Sales-Channel access key.
 
 ## How to query for data 
 
