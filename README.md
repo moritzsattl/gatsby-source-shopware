@@ -51,7 +51,7 @@ SHOPWARE_ACCESS_KEY= //<insert your shopware access key>
 ## Plugin Options
 
 ### host (required)
-Your API Endpoint where your SHopware 6 installation lives.
+Your API Endpoint where your Shopware 6 installation lives.
 
 ### accessKey (required)
 Your Sales-Channel access key.
